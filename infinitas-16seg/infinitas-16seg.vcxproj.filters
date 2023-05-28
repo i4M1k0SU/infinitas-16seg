@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ticker">
+      <UniqueIdentifier>{ea3b4412-6bdd-44db-a57a-6a713507491c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hid">
+      <UniqueIdentifier>{1d94dfb7-2a8d-46c6-a49c-9423311b8504}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hook">
+      <UniqueIdentifier>{701ab3da-b7f0-43cc-aa5a-694d831e780a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proxy">
+      <UniqueIdentifier>{3e1d0966-4136-4ad8-b2f9-b1d911b38046}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proxy\dbghelp">
+      <UniqueIdentifier>{1b1c3077-e216-42be-a782-883466921b22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ticker\htlab">
+      <UniqueIdentifier>{d8de320f-0c55-4012-9175-aac8970ee9c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ticker.h">
+      <Filter>ticker</Filter>
+    </ClInclude>
+    <ClInclude Include="hidapi.h">
+      <Filter>hid</Filter>
+    </ClInclude>
+    <ClInclude Include="file_hook.h">
+      <Filter>hook</Filter>
+    </ClInclude>
+    <ClInclude Include="dbghelp_proxy.h">
+      <Filter>proxy\dbghelp</Filter>
+    </ClInclude>
+    <ClInclude Include="16seg_htlab.h">
+      <Filter>ticker\htlab</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ticker.cpp">
+      <Filter>ticker</Filter>
+    </ClCompile>
+    <ClCompile Include="hid.c">
+      <Filter>hid</Filter>
+    </ClCompile>
+    <ClCompile Include="file_hook.cpp">
+      <Filter>hook</Filter>
+    </ClCompile>
+    <ClCompile Include="dbghelp_proxy.cpp">
+      <Filter>proxy\dbghelp</Filter>
+    </ClCompile>
+    <ClCompile Include="16seg_htlab.c">
+      <Filter>ticker\htlab</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
