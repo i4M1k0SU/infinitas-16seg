@@ -1,0 +1,43 @@
+name: MSBuild
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  SOLUTION_FILE_PATH: .
+  BUILD_CONFIGURATION: Release
+  ARCHITECTURE: x64
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Vcpkg
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        vcpkg integrate install
+        cd infinitas-16seg
+        vcpkg install --triplet=${{env.ARCHITECTURE}}-windows
+        cd ..
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.ARCHITECTURE}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: artifact
+        path: ${{env.ARCHITECTURE}}/${{env.BUILD_CONFIGURATION}}/*.dll
