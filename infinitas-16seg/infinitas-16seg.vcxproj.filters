@@ -4,9 +4,6 @@
     <Filter Include="ticker">
       <UniqueIdentifier>{ea3b4412-6bdd-44db-a57a-6a713507491c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="hid">
-      <UniqueIdentifier>{1d94dfb7-2a8d-46c6-a49c-9423311b8504}</UniqueIdentifier>
-    </Filter>
     <Filter Include="hook">
       <UniqueIdentifier>{701ab3da-b7f0-43cc-aa5a-694d831e780a}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     <ClInclude Include="ticker.h">
       <Filter>ticker</Filter>
     </ClInclude>
-    <ClInclude Include="hidapi.h">
-      <Filter>hid</Filter>
-    </ClInclude>
     <ClInclude Include="file_hook.h">
       <Filter>hook</Filter>
     </ClInclude>
@@ -65,9 +59,6 @@
     <ClCompile Include="ticker.cpp">
       <Filter>ticker</Filter>
     </ClCompile>
-    <ClCompile Include="hid.c">
-      <Filter>hid</Filter>
-    </ClCompile>
     <ClCompile Include="file_hook.cpp">
       <Filter>hook</Filter>
     </ClCompile>
@@ -77,8 +68,5 @@
     <ClCompile Include="16seg_htlab.c">
       <Filter>ticker\htlab</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>

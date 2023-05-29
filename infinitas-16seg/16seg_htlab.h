@@ -1,6 +1,6 @@
 #pragma once
 
-#include "hidapi.h"
+#include <hidapi/hidapi.h>
 
 typedef struct SegLed {
     bool available;

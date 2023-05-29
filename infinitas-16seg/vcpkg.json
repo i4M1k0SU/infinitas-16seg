@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+  "name": "infinitas-16seg",
+  "version": "1.0.0",
+  "builtin-baseline": "82e03905f54fc49d11346e5148e3860747604d86",
+  "dependencies": [
+    "detours",
+    "hidapi"
+  ],
+  "overrides": [
+    {
+      "name": "detours",
+      "version": "4.0.1"
+    },
+    {
+      "name": "hidapi",
+      "version": "0.12.0"
+    }
+  ]
+}
