@@ -1,26 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31613.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "infinitas-16seg", "infinitas-16seg\infinitas-16seg.vcxproj", "{0A6DF8E9-D4BF-4F0F-8204-64985E389849}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0A6DF8E9-D4BF-4F0F-8204-64985E389849}.Debug|x64.ActiveCfg = Debug|x64
 		{0A6DF8E9-D4BF-4F0F-8204-64985E389849}.Debug|x64.Build.0 = Debug|x64
-		{0A6DF8E9-D4BF-4F0F-8204-64985E389849}.Debug|x86.ActiveCfg = Debug|Win32
-		{0A6DF8E9-D4BF-4F0F-8204-64985E389849}.Debug|x86.Build.0 = Debug|Win32
 		{0A6DF8E9-D4BF-4F0F-8204-64985E389849}.Release|x64.ActiveCfg = Release|x64
 		{0A6DF8E9-D4BF-4F0F-8204-64985E389849}.Release|x64.Build.0 = Release|x64
-		{0A6DF8E9-D4BF-4F0F-8204-64985E389849}.Release|x86.ActiveCfg = Release|Win32
-		{0A6DF8E9-D4BF-4F0F-8204-64985E389849}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

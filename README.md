@@ -7,6 +7,7 @@ beatmania IIDX INFINITASで16セグメントLEDを利用できるようにする
 ## 対応デバイス
 
 - [HTLAB.NET製16セグメントLED表示器 (16 Segment 9 Digit Display Controller Ver2.0)](https://htlab.net/products/16-segment-9-digit-display-controller-2/)
+    - https://github.com/htlabnet/16_Segment_9_Digit_Display_Controller_For_v2
 
 ## 使い方
 

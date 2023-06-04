@@ -2,22 +2,11 @@
 #include "dbghelp_proxy.h"
 
 static HINSTANCE hDbghelp;
-static FARPROC p_MakeSureDirectoryPathExists;
-static FARPROC p_StackWalk64;
-static FARPROC p_SymCleanup;
-static FARPROC p_SymGetLineFromAddr64;
-static FARPROC p_SymGetSymFromAddr64;
-static FARPROC p_SymInitialize;
-static FARPROC p_MiniDumpWriteDump;
+static BOOL(WINAPI* MakeSureDirectoryPathExists_orig)(PCSTR DirPath) = NULL;
 
-extern "C" {
-    _declspec (dllexport) BOOL WINAPI MakeSureDirectoryPathExists() { return p_MakeSureDirectoryPathExists(); }
-    _declspec (dllexport) BOOL WINAPI StackWalk64() { return p_StackWalk64(); }
-    _declspec (dllexport) BOOL WINAPI SymCleanup() { return p_SymCleanup(); }
-    _declspec (dllexport) BOOL WINAPI SymGetLineFromAddr64() { return p_SymGetLineFromAddr64(); }
-    _declspec (dllexport) BOOL WINAPI SymGetSymFromAddr64() { return p_SymGetSymFromAddr64(); }
-    _declspec (dllexport) BOOL WINAPI SymInitialize() { return p_SymInitialize(); }
-    _declspec (dllexport) BOOL WINAPI MiniDumpWriteDump() { return p_MiniDumpWriteDump(); }
+extern "C" _declspec (dllexport) BOOL WINAPI MakeSureDirectoryPathExists(PCSTR DirPath)
+{
+    return MakeSureDirectoryPathExists_orig(DirPath);
 }
 
 bool proxy::dbghelp::load()
@@ -37,13 +26,13 @@ bool proxy::dbghelp::load()
         return false;
     }
 
-    p_MakeSureDirectoryPathExists = GetProcAddress(hDbghelp, "MakeSureDirectoryPathExists");
-    p_StackWalk64 = GetProcAddress(hDbghelp, "StackWalk64");
-    p_SymCleanup = GetProcAddress(hDbghelp, "SymCleanup");
-    p_SymGetLineFromAddr64 = GetProcAddress(hDbghelp, "SymGetLineFromAddr64");
-    p_SymGetSymFromAddr64 = GetProcAddress(hDbghelp, "SymGetSymFromAddr64");
-    p_SymInitialize = GetProcAddress(hDbghelp, "SymInitialize");
-    p_MiniDumpWriteDump = GetProcAddress(hDbghelp, "MiniDumpWriteDump");
+    MakeSureDirectoryPathExists_orig = reinterpret_cast<decltype(MakeSureDirectoryPathExists_orig)>(GetProcAddress(hDbghelp, "MakeSureDirectoryPathExists"));
+    if (MakeSureDirectoryPathExists_orig == NULL)
+    {
+        std::cerr << "Failed: GetProcAddress(dbghelp.dll, MakeSureDirectoryPathExists)" << std::endl;
+
+        return false;
+    }
 
     return true;
 }

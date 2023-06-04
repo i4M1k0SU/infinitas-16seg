@@ -6,7 +6,6 @@
 
 #ifndef PCH_H
 #define PCH_H
-#define NOMINMAX
 
 // プリコンパイルするヘッダーをここに追加します
 #include "framework.h"
