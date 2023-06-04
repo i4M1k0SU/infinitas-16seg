@@ -28,6 +28,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ticker\handler">
+      <UniqueIdentifier>{fcaaa2cf-cdbe-41bb-984d-57c083453055}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -48,6 +51,9 @@
     <ClInclude Include="16seg_htlab.h">
       <Filter>ticker\htlab</Filter>
     </ClInclude>
+    <ClInclude Include="ticker_handler.h">
+      <Filter>ticker\handler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -67,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="16seg_htlab.c">
       <Filter>ticker\htlab</Filter>
+    </ClCompile>
+    <ClCompile Include="ticker_handler.cpp">
+      <Filter>ticker\handler</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -184,6 +184,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ticker.h" />
+    <ClInclude Include="ticker_handler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="16seg_htlab.c">
@@ -202,6 +203,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ticker.cpp" />
+    <ClCompile Include="ticker_handler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
