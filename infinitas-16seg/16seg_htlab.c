@@ -56,22 +56,12 @@ void writeSegLed(SegLed* _this, const char str[10]) {
 
     strcpy_s(_this->currentString, sizeof(_this->currentString), str);
 
-    char output[13] = { 0x00, 0x1F };
-
-    output[2] = str[0];
-    output[3] = str[1];
-    output[4] = str[2];
-    output[5] = str[3];
-    output[6] = str[4];
-    output[7] = str[5];
-    output[8] = str[6];
-    output[9] = str[7];
-    output[10] = str[8];
-
-    output[11] = 0x00;
-    output[12] = 0x00;
+    char output[13] = { 0x00 };
+    output[1] = 0x1f;
+    for (int i = 0; i < 9 && str[i] != 0x00; i++)
+    {
+        output[i + 2] = str[i];
+    }
 
     hid_write(_this->device, output, sizeof(output));
-
-    return;
 }
