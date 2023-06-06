@@ -1,5 +1,7 @@
 # INFINITAS 16Seg
 
+[![Build](https://github.com/i4M1k0SU/infinitas-16seg/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/i4M1k0SU/infinitas-16seg/actions/workflows/build.yml?query=branch%3Amaster)
+
 beatmania IIDX INFINITASで16セグメントLEDを利用できるようにするDLL
 
 ファイル読み込みベースのゲームステート取得により、表示文字列を生成する
