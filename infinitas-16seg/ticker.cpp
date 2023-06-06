@@ -12,60 +12,71 @@ static bool loop = false;
 static size_t prePaddingCnt = 2;
 
 // @see https://github.com/htlabnet/16_Segment_9_Digit_Display_Controller_For_v2/blob/master/Firmware/16_Segment_9_Digit_Display_Controller_For_v2.X/segFonts.h#L23
-static char replace16SegChar(char input)
+static void replace16SegStr(std::string& text)
 {
-    if (input >= 0x00 && input <= 0x20)
+    std::string asterisk = "*";
+    std::string star = "\x81\x99"; // ☆ in Shift_JIS
+    size_t starSize = star.size();
+
+    for (size_t i = 0; i < text.size(); i++)
     {
-        return ' ';
+        // ☆ -> * の置換 (英語表記に ☆ が含まれている曲がある)
+        // 実機での☆の扱いは、 ` (*の5個版) ではなく、 * が使われている
+        if (text.substr(i, starSize) == star)
+        {
+            text.replace(i, starSize, asterisk);
+            i += asterisk.size() - 1;
+        }
+
+        // 特殊制御文字・大文字置換
+        char& c = text[i];
+        if (c >= 0x00 && c <= 0x20)
+        {
+            c = ' ';
+            continue;
+        }
+
+        switch (c)
+        {
+        // 特殊文字
+        case '\'': c = 'q'; continue;
+        case ',': c = 'u'; continue;
+        case '.': c = 'm'; continue;
+        case '`': c = 'w'; continue;
+        case '{': c = '['; continue;
+        //case '|': c = '1'; continue;
+        case '}': c = ']'; continue;
+        // 空白が定義されている
+        case '#':
+        case ':':
+        case ';':
+        case '@':
+        //case 'd':
+        //case 'e':
+        //case 'f':
+        //case '`': // 特殊文字
+        //case '{': // 特殊文字
+        case '|': // 特殊文字
+        //case '}': // 特殊文字
+        case '~': // 特殊文字
+        case 127: // 特殊文字
+        case 128:
+        case 129:
+            c = ' ';
+            continue;
+        }
+
+        // 特殊文字
+        // `: *の5個版(☆?)
+        // a: 〆
+        // b: 古
+        // c: 平
+        // g: 全点灯
+        // h-w(x): 1ヶ所点灯
+        // x(pと同じ)yz{|}~0x7f(gと同じ): xから0x7fまでで1ヶ所づつ点灯が増えていく
+
+        c = toupper(c);
     }
-
-    switch (input)
-    {
-    // 特殊文字
-    case '\'':
-        return 'q';
-    case ',':
-        return 'u';
-    case '.':
-        return 'm';
-    case '`':
-        return 'w';
-    case '{':
-        return '[';
-    //case '|':
-    //    return '1';
-    case '}':
-        return ']';
-
-    // 空白が定義されている
-    case '#':
-    case ':':
-    case ';':
-    case '@':
-    //case 'd':
-    //case 'e':
-    //case 'f':
-    //case '`': // 特殊文字
-    //case '{': // 特殊文字
-    case '|': // 特殊文字
-    //case '}': // 特殊文字
-    case '~': // 特殊文字
-    case 127: // 特殊文字
-    case 128:
-    case 129:
-        return ' ';
-    }
-
-    // 特殊文字
-    // `: *の5個版(☆?)
-    // a: 〆
-    // b: 古
-    // c: 平
-    // g: 全点灯
-    // h-w(x): 1ヶ所点灯
-    // x(pと同じ)yz{|}~0x7f(gと同じ): xから0x7fまでで1ヶ所づつ点灯が増えていく
-
-    return toupper(input);
 }
 
 static void _loop()
@@ -137,7 +148,7 @@ void ticker::close()
 
 void ticker::display(std::string text, bool isAppend)
 {
-    transform(text.begin(), text.end(), text.begin(), ::replace16SegChar);
+    replace16SegStr(text);
     scroll = false;
     if (isAppend)
     {
@@ -151,7 +162,7 @@ void ticker::display(std::string text, bool isAppend)
 
 void ticker::displayScroll(std::string text, bool isAppend, size_t prePadding)
 {
-    transform(text.begin(), text.end(), text.begin(), ::replace16SegChar);
+    replace16SegStr(text);
     scroll = true;
     prePaddingCnt = prePadding;
     if (isAppend)
