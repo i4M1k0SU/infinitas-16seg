@@ -36,8 +36,11 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.ARCHITECTURE}} ${{env.SOLUTION_FILE_PATH}}
 
+    - name: Set the date
+      run: echo "DATE=$(date +'%Y%m%d%H%M%S')" >> $env:GITHUB_ENV
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: artifact
+        name: infinitas-16seg_${{ env.DATE }}
         path: ${{env.ARCHITECTURE}}/${{env.BUILD_CONFIGURATION}}/*.dll
