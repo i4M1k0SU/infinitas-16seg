@@ -13,7 +13,14 @@ beatmania IIDX INFINITASで16セグメントLEDを利用できるようにする
 
 ## 使い方
 
-### DLL Proxy (オススメ)
+### infinitas_chainload
+
+https://github.com/emskye96/infinitas_chainload
+
+- infinitas_chainloadのREADMEに従い、セットアップしてください
+- `infinitas-16seg.dll` の配置場所はどこでも構いません
+
+### DLL Proxy
 
 - `infinitas-16seg.dll` を `dbghelp.dll` にリネームしてください
 - `dbghelp.dll` をインストールディレクトリ (デフォルトであれば `C:\Games\beatmania IIDX INFINITAS\game\app` ) にコピーしてください
