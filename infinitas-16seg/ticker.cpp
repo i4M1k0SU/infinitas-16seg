@@ -5,6 +5,11 @@ extern "C" {
 #include "16seg_htlab.h"
 }
 
+static const std::string asterisk = "*";
+static const std::string star = "\x81\x99"; // ☆ in Shift_JIS
+static const size_t asteriskSize = asterisk.size();
+static const size_t starSize = star.size();
+
 static SegLed segLed;
 static std::string displayText = "";
 static bool scroll = false;
@@ -14,10 +19,6 @@ static size_t prePaddingCnt = 2;
 // @see https://github.com/htlabnet/16_Segment_9_Digit_Display_Controller_For_v2/blob/master/Firmware/16_Segment_9_Digit_Display_Controller_For_v2.X/segFonts.h#L23
 static void replace16SegStr(std::string& text)
 {
-    std::string asterisk = "*";
-    std::string star = "\x81\x99"; // ☆ in Shift_JIS
-    size_t starSize = star.size();
-
     for (size_t i = 0; i < text.size(); i++)
     {
         // ☆ -> * の置換 (英語表記に ☆ が含まれている曲がある)
@@ -25,11 +26,11 @@ static void replace16SegStr(std::string& text)
         if (text.substr(i, starSize) == star)
         {
             text.replace(i, starSize, asterisk);
-            i += asterisk.size() - 1;
+            i += asteriskSize - 1;
         }
 
         // 特殊制御文字・大文字置換
-        char& c = text[i];
+        char& c = gsl::at(text, i);
         if (c >= 0x00 && c <= 0x20)
         {
             c = ' ';
@@ -59,11 +60,13 @@ static void replace16SegStr(std::string& text)
         case '|': // 特殊文字
         //case '}': // 特殊文字
         case '~': // 特殊文字
-        case 127: // 特殊文字
-        case 128:
-        case 129:
+        case 0x7f: // 特殊文字
+        case 0x80:
+        case 0x81:
             c = ' ';
             continue;
+        default:
+            break;
         }
 
         // 特殊文字
@@ -75,7 +78,7 @@ static void replace16SegStr(std::string& text)
         // h-w(x): 1ヶ所点灯
         // x(pと同じ)yz{|}~0x7f(gと同じ): xから0x7fまでで1ヶ所づつ点灯が増えていく
 
-        c = toupper(c);
+        c = ::toupper(c);
     }
 }
 
@@ -85,7 +88,7 @@ static void _loop()
 
     while (loop)
     {
-        Sleep(100);
+        ::Sleep(100);
         if (scroll)
         {
             std::string currentText = displayText;
@@ -105,7 +108,7 @@ static void _loop()
                     break;
                 }
                 writeSegLed(&segLed, tmp.substr(i, 9).c_str());
-                Sleep(320);
+                ::Sleep(320);
             }
 
             continue;
@@ -128,7 +131,7 @@ static void beginDisplayLoop()
 bool ticker::init()
 {
     std::cout << "Initializing 16Seg LED..." << std::endl;
-    bool available = initSegLed(&segLed);
+    const bool available = initSegLed(&segLed);
     std::cout << "available: " << (available ? "YES" : "NO") << std::endl;
     beginDisplayLoop();
     displayScroll("NOW LOADING...");
@@ -149,7 +152,6 @@ void ticker::close()
 void ticker::display(std::string text, bool isAppend)
 {
     replace16SegStr(text);
-    scroll = false;
     if (isAppend)
     {
         displayText += text;
@@ -158,19 +160,16 @@ void ticker::display(std::string text, bool isAppend)
     {
         displayText = text;
     }
+    scroll = false;
+
+#ifdef _DEBUG
+    std::cout << displayText << std::endl;
+#endif // _DEBUG
 }
 
 void ticker::displayScroll(std::string text, bool isAppend, size_t prePadding)
 {
-    replace16SegStr(text);
+    display(text, isAppend);
     scroll = true;
     prePaddingCnt = prePadding;
-    if (isAppend)
-    {
-        displayText += text;
-    }
-    else
-    {
-        displayText = text;
-    }
 }

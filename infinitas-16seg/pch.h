@@ -18,5 +18,6 @@
 #include <shlwapi.h>
 #include <tchar.h>
 #include <detours.h>
+#include <gsl/gsl>
 
 #endif //PCH_H

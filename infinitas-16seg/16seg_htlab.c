@@ -9,7 +9,7 @@
 
 bool initSegLed(SegLed* _this) {
     _this->available = false;
-    memset(_this->currentString, 0x00, sizeof(_this->currentString));
+    ZeroMemory(_this->currentString, sizeof(_this->currentString));
 
     if (hid_init() != 0) {
         return false;
@@ -63,5 +63,5 @@ void writeSegLed(SegLed* _this, const char str[10]) {
         output[i + 2] = str[i];
     }
 
-    hid_write(_this->device, output, sizeof(output));
+    hid_write(_this->device, (const unsigned char*)output, sizeof(output));
 }

@@ -13,7 +13,7 @@ static std::smatch match;
 // ファイル名からの取得は不可能である項目は変更している
 // @see https://youtu.be/FS8T7abHsuQ
 // @see https://youtu.be/xHBT0c2PS0c
-void ticker::handler::fopenHandler(std::string filename)
+void ticker::handler::fopenHandler(const std::string& filename)
 {
     if (filename == "/data/graphic/logo.ifs")
     {
@@ -45,7 +45,7 @@ void ticker::handler::fopenHandler(std::string filename)
         return;
     }
 
-    // ticket_panel.ifs の方がタイミングは正しいが、リザルトから選曲画面に戻った時も呼ばれるためisModeを使う
+    // ticket_panel.ifs の方がタイミングは正しいが、リザルトから選曲画面に戻った時も呼ばれるため mode.ifs を使う
     if (filename == "/data/graphic/mode.ifs")
     {
         isMode = true;
@@ -102,7 +102,7 @@ void ticker::handler::fopenHandler(std::string filename)
 
     if (std::regex_match(filename, match, pathPattern) && match.size() > 2)
     {
-        uint32_t id = std::stoi(match[2].str(), nullptr, 10);
+        const uint32_t id = std::stoi(gsl::at(match, 2).str(), nullptr, 10);
         if (musicTitles.contains(id))
         {
             ticker::displayScroll(musicTitles[id]);
@@ -111,13 +111,13 @@ void ticker::handler::fopenHandler(std::string filename)
     }
 }
 
-void ticker::handler::setMusicTitle(uint32_t id, std::string title)
+void ticker::handler::setMusicTitle(uint32_t id, const std::string& title)
 {
     musicTitles[id] = title;
     std::cout << "id: " << id << " title: " << title << std::endl;
 }
 
-bool ticker::handler::isEmptyMusicTitleMap()
+bool ticker::handler::isEmptyMusicTitleMap() noexcept
 {
     return musicTitles.empty();
 }
