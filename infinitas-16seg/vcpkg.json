@@ -5,7 +5,8 @@
   "builtin-baseline": "582a4de14bef91df217f4f49624cf5b2b04bd7ca",
   "dependencies": [
     "detours",
-    "hidapi"
+    "hidapi",
+    "ms-gsl"
   ],
   "overrides": [
     {
@@ -15,6 +16,10 @@
     {
       "name": "hidapi",
       "version": "0.14.0"
+    },
+    {
+      "name": "ms-gsl",
+      "version": "4.0.0"
     }
   ]
 }
