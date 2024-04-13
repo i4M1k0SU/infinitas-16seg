@@ -11,14 +11,16 @@ extern "C" _declspec (dllexport) BOOL WINAPI MakeSureDirectoryPathExists(PCSTR D
 
 bool proxy::dbghelp::load()
 {
+#pragma warning(push)
+#pragma warning(disable: 26485 26490)
     TCHAR path[_MAX_PATH];
-    if (GetSystemDirectory(path, _MAX_PATH) == 0)
+    if (::GetSystemDirectory(path, _MAX_PATH) == 0)
     {
         return false;
     }
     
     _tcscat_s(path, L"\\dbghelp.dll");
-    hDbghelp = LoadLibrary(path);
+    hDbghelp = ::LoadLibrary(path);
     if (hDbghelp == NULL)
     {
         std::cerr << "Failed: LoadLibrary(dbghelp.dll)" << std::endl;
@@ -26,20 +28,21 @@ bool proxy::dbghelp::load()
         return false;
     }
 
-    MakeSureDirectoryPathExists_orig = reinterpret_cast<decltype(MakeSureDirectoryPathExists_orig)>(GetProcAddress(hDbghelp, "MakeSureDirectoryPathExists"));
+    MakeSureDirectoryPathExists_orig = reinterpret_cast<decltype(MakeSureDirectoryPathExists_orig)>(::GetProcAddress(hDbghelp, "MakeSureDirectoryPathExists"));
     if (MakeSureDirectoryPathExists_orig == NULL)
     {
         std::cerr << "Failed: GetProcAddress(dbghelp.dll, MakeSureDirectoryPathExists)" << std::endl;
 
         return false;
     }
+#pragma warning(pop)
 
     return true;
 }
 
-bool proxy::dbghelp::unload()
+bool proxy::dbghelp::unload() noexcept
 {
-    if (hDbghelp != NULL && FreeLibrary(hDbghelp) == FALSE)
+    if (hDbghelp != NULL && ::FreeLibrary(hDbghelp) == FALSE)
     {
         return false;
     }

@@ -3,5 +3,5 @@
 namespace proxy::dbghelp
 {
     bool load();
-    bool unload();
+    bool unload() noexcept;
 }
