@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
   "name": "infinitas-16seg",
   "version": "1.0.0",
-  "builtin-baseline": "582a4de14bef91df217f4f49624cf5b2b04bd7ca",
+  "builtin-baseline": "5fa0f075ea51f305b627ecd5e050a363707353ff",
   "dependencies": [
     "detours",
     "hidapi",
